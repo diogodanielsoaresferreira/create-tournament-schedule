@@ -27,7 +27,7 @@ public class ScheduleConstraintProvider implements ConstraintProvider {
         return constraintFactory
                 .forEach(Match.class)
                 .filter(match -> match.getHomeTeam() == match.getAwayTeam())
-                .penalize(HardSoftScore.ofHard(1))
+                .penalize(HardSoftScore.ONE_HARD)
                 .asConstraint("A team cannot play against itself");
     }
 
@@ -39,7 +39,7 @@ public class ScheduleConstraintProvider implements ConstraintProvider {
                         || match1.getHomeTeam() == match2.getAwayTeam()
                         || match1.getAwayTeam() == match2.getAwayTeam()
                 )
-                .penalize(HardSoftScore.ofHard(1))
+                .penalize(HardSoftScore.ONE_HARD)
                 .asConstraint("Each team can only play once per round");
     }
 
@@ -51,7 +51,7 @@ public class ScheduleConstraintProvider implements ConstraintProvider {
                         (match1.getHomeTeam() == match2.getAwayTeam() &&
                                 match1.getAwayTeam() == match2.getHomeTeam())
                 )
-                .penalize(HardSoftScore.ofHard(1))
+                .penalize(HardSoftScore.ONE_HARD)
                 .asConstraint("Two teams can only face each other one time");
     }
 
@@ -64,7 +64,7 @@ public class ScheduleConstraintProvider implements ConstraintProvider {
                                 (match1.getRound() + 1 == match2.getRound() &&
                                         (match1.getHomeTeam() == match2.getHomeTeam() || match1.getAwayTeam() == match2.getAwayTeam()))
                 )
-                .penalize(HardSoftScore.ofSoft(1))
+                .penalize(HardSoftScore.ONE_SOFT)
                 .asConstraint("A team should not play two consecutive house or away games");
     }
 
@@ -77,7 +77,7 @@ public class ScheduleConstraintProvider implements ConstraintProvider {
                         (match.getHomeTeam() == rivalry.getTeamA() && match.getAwayTeam() == rivalry.getTeamB()) ||
                                 (match.getHomeTeam() == rivalry.getTeamB() && match.getAwayTeam() == rivalry.getTeamA())
                 )
-                .penalize(HardSoftScore.ofSoft(1))
+                .penalize(HardSoftScore.ONE_SOFT)
                 .asConstraint("Rival teams should not face on first round");
     }
 
